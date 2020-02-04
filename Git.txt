@@ -79,6 +79,13 @@ To run fscrawler in cron job create a sh file with .sh extenstion andinside file
 ../fscrawler/bin/fscrawler testjob --loop 1  
 
 
+Once the script is done set cron command or run command in cmd like below
+/home/reeta/Reeta/script.sh    OR
+
+sh script.sh at file location
+
+
+
 
 
 
