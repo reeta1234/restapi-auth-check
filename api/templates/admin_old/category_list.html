@@ -1,0 +1,16 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_static %}
+{% block breadcrumbs %}
+<div class="breadcrumbs"> <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a> &rsaquo; <a href="/admin/benefitapp/">Benefit</a> &rsaquo; <a href="/admin/benefitapp/users/">Users</a> &rsaquo; {{email}} </div>
+{% endblock %}
+
+{% block content %}
+<h1>Articles</h1>
+<ul>
+{% for article in object_list %}
+    <li>{{ article.id }} - {{ article.name }}</li>
+{% empty %}
+    <li>No articles yet.</li>
+{% endfor %}
+</ul>
+{% endblock %}

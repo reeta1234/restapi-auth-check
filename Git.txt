@@ -1,0 +1,74 @@
+1. Create New Branch: git branch branchName
+2. Switch to git branch: git checkout branchName
+3. Create new branch and switch to that: git checkout -b feature_branch_name.
+4. Delete all local branch from git: git branch | grep -v "develop" | grep -v "master" | xargs git branch -D
+https://www.freecodecamp.org/forum/t/push-a-new-local-branch-to-a-remote-git-repository-and-track-it-too/13222
+
+Use the following commands-
+
+git add -A to add all files new files, changes and removed files.
+git commit -m  "Your message" to save the changes done in the files.
+git push -u origin master to send your committed changes to a remote repository, where the local branch is named master to the remote named origin
+
+70a964468ba4725881149bae6d2d0dddee42d66b
+
+To work with fscrawler 
+
+1. download fscrawler , unzip the folder go to fscrawler folder then type command $bin/fscrawler job_name then enter. below is example
+
+reeta@reeta-Latitude-5490:~/fscrawler$ bin/fscrawler testjob
+
+After cretaed job fo to the cd ~ then enter
+reeta@reeta-Latitude-5490:~$ cd .fscrawler/
+reeta@reeta-Latitude-5490:~/.fscrawler$ ls
+--config_data  data_science  _default  job1  job_name  job_name2  testjob
+reeta@reeta-Latitude-5490:~/.fscrawler$ cd testjob/
+reeta@reeta-Latitude-5490:~/.fscrawler/testjob$ ls
+_settings.yaml
+reeta@reeta-Latitude-5490:~/.fscrawler/testjob$ vim _settings.yaml
+
+After open _settings.yaml file , modify it 
+
+name: "job1"
+fs:
+  url: "/home/reeta/docs"    put the folder with absolute path
+  update_rate: "15m"
+  excludes:
+  - "*/~*"
+  json_support: false
+  filename_as_id: false
+  add_filesize: true
+  remove_deleted: true
+  add_as_inner_object: false
+  store_source: false
+  index_content: true
+  attributes_support: false
+  raw_metadata: false
+  xml_support: false
+  index_folders: true
+  lang_detect: false
+  continue_on_error: false
+  ocr:
+    language: "eng"
+    enabled: true
+    pdf_strategy: "ocr_and_text"
+  follow_symlinks: false
+elasticsearch:
+  nodes:
+  - url: "http://127.0.0.1:9200"
+  bulk_size: 100
+  flush_interval: "5s"
+  byte_size: "10mb"
+
+
+Once _settings.yaml modification is done the run the below command
+reeta@reeta-Latitude-5490:~/.fscrawler/testjob$ cd ~
+reeta@reeta-Latitude-5490:~$ cd fscrawler/
+reeta@reeta-Latitude-5490:~/fscrawler$ bin/fscrawler testjob --loop 1
+
+Now its done and go to Elastci search and search
+
+If index removed from elasticsearch the we need to restart fsclawer to make it reset again
+bin/fscrawler testjob --loop 1 --restart
+
+

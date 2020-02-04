@@ -1,0 +1,66 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_static %}
+
+{% block extrastyle %}{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static "admin/css/dashboard.css" %}" />
+{% endblock %}
+<link rel="stylesheet" type="text/css" href="/images/admin/css/test.css" />
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs"> <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a> &rsaquo; <a href="/admin/">Benefit</a> &rsaquo; <a href="/admin/">Profiles</a> &rsaquo; {{email}} </div>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+  <div class="row main-section">
+    <div class="medium-4 columns text-center"><img src="{{image}}"><br>
+ {{totalFollowers}} <br>
+      Followers </div>
+    <div class="medium-4 columns">
+      <p><strong>Name</strong><br>
+        {{firstname}} {{lastname}}</p>
+      <p><strong>Gender</strong><br>
+        {{gender}}</p>
+      <p><strong>Location</strong><br>
+        {{location}}</p>
+      <p><strong>Referal Code</strong><br>
+        {{referalcode}}</p>
+    </div>
+    <div class="medium-4 columns">
+      <p><strong>Email</strong><br>
+        <a href="mailto:{{email}}">{{email}}</a></p>
+      <p><strong>Age</strong><br>
+        {{age}}</p>
+      <p><strong>Userid</strong><br>
+        {{userid}}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="medium-12 columns">
+      <p><strong>About</strong><br>
+        {{about}}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="medium-3 columns"><strong>AllPost</strong> ({{totalAllPost}})</div>
+    <div class="medium-3 columns"><strong>Post</strong> ({{totalText}})</div>
+    <div class="medium-3 columns"><strong>Video</strong> ({{totalVideo}})</div>
+    <div class="medium-3 columns"><strong>Image</strong> ({{totalImage}})</div>
+  </div>
+  {%if categorylist%}
+  {% for cat in categorylist %}
+  
+  <div class="row">
+    <div class="medium-12 columns">{{cat.catName}}</div>    
+  </div>
+  
+ 
+  {% endfor %} </div>
+  {%endif%}
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

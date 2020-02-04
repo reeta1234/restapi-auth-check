@@ -1,0 +1,19 @@
+[01/Feb/2016 09:38:07] ERROR [django.request:256] Internal Server Error: /api/compose/
+Traceback (most recent call last):
+  File "/home/benefitstg/public_html/benefit/env/lib/python2.7/site-packages/django/core/handlers/base.py", line 132, in get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/benefitstg/public_html/benefit/env/lib/python2.7/site-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/benefitstg/public_html/benefit/env/lib/python2.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/benefitstg/public_html/benefit/env/lib/python2.7/site-packages/rest_framework/views.py", line 466, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/benefitstg/public_html/benefit/env/lib/python2.7/site-packages/rest_framework/views.py", line 463, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/benefitstg/public_html/benefit/benefitapp/utils.py", line 65, in inner
+    return func(self,request, *args, **kwargs)
+  File "/home/benefitstg/public_html/benefit/benefitapp/utils.py", line 44, in inner
+    return func(self,request, *args, **kwargs)
+  File "/home/benefitstg/public_html/benefit/benefitapp/messages.py", line 106, in post
+    if toAllFollowers=='yes':
+NameError: global name 'toAllFollowers' is not defined

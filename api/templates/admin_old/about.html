@@ -1,0 +1,42 @@
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/s/dt/dt-1.10.10/datatables.min.css"/>
+<script type="text/javascript" src="https://cdn.datatables.net/s/dt/dt-1.10.10/datatables.min.js"></script>
+<table id="example" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Name</th>                
+            </tr>
+        </thead>
+        
+        <tbody>
+		{% for pObj in postList %}
+            <tr>
+                <td>
+					<div class="postdetail">
+						<span id="postmedia"><img src="{{pObj.medium_thumb}}"></span>
+						<span id="title">{{pObj.title}}</span>
+						<span id="description">{{pObj.description}}</span>						
+						<span id="createdate">Uploaded on {{pObj.createdate}}</span>
+						<span id="scope">Free/Premium</span>
+						<span id="totalComment">Comments {{pObj.totalComment}}</span>						
+						<span id="totalLikes">Like {{pObj.totalLikes}}</span>
+						<span id="scope">Free/Premium</span>
+						<span id="categorylist">Category {{pObj.categoryList}}</span>
+												
+						<div class='userdetail'><span id="userimg"><img src="{{pObj.mediumthumbimg}}"></span>
+						<span id="postedby">{{pObj.postedby}}</span>						
+						<span id="followers">Followers {{pObj.totalFollowers}}</span>
+						<span id="videos">#Videos {{pObj.totalVideo}}</span>
+						<span id="textpost">Total Text {{pObj.totalText}}</span>
+						<span id="action">{{pObj.action}}</span>
+					</div>
+				</td>               
+            </tr>
+			{%endfor%}
+        </tbody>
+    </table>
+<script>
+$(document).ready(function() {
+    $('#example').DataTable();
+} );
+</script>                                   

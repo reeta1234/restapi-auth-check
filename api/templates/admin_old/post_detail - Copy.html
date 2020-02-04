@@ -1,0 +1,79 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_static %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/dashboard.css" %}" />{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
+
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+        <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+        &rsaquo; <a href="/admin/benefitapp/">Benefit</a>
+		&rsaquo; <a href="/admin/benefitapp/post/">Post</a>
+		&rsaquo; {{email}}
+    </div>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+
+Post detail
+<p><strong>Title</strong><br>
+
+{{title}}
+</p>
+<p><strong>Description</strong><br>
+
+{{description}}
+</p>
+
+<p><strong>Create Date</strong><br>
+{{createdate}}</p>
+<p>
+<strong>Scope</strong><br>
+
+
+{{scope}}</p>
+<p>
+
+<strong>Type</strong><br>
+
+{{type}}</p>
+
+<p><strong>Id</strong><br>
+{{post_owner_id}}</p>
+
+<p>
+<strong>Category</strong>
+<br>
+
+{{category}}</p>
+
+<p>Tag List ({{tagList}})  <strong>Likes</strong> ({{totalLikes}})  <strong>Comment</strong> ({{totalComment}}) {{comments}}</p>
+
+
+
+{{post_small_thumb}}
+{{post_medium_thumb}}
+
+---------------------------------------------------------
+
+{% for cat in category%}
+{{cat.title}}<br />
+{% endfor %}
+
+{% for tag in tagList%}
+{{tag.tagtext}}<br />
+{% endfor %}
+
+{% for cmt in comments %}
+{{cmt.comment}}<br />
+{% endfor %}
+
+</div>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %} 

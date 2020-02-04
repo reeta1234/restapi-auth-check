@@ -1,0 +1,130 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_static %}
+
+{% block content %}
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/s/dt/dt-1.10.10/datatables.min.css"/>
+<script type="text/javascript" src="https://cdn.datatables.net/s/dt/dt-1.10.10/datatables.min.js"></script>
+<div id="tabs-container">
+  <ul class="tabs-menu">
+    <li class="current"><a href="/admin/">User Management</a></li>
+    <li><a href="/admin/post">Manage Video/Post</a></li>
+    <li><a href="/admin/product">Manage Product </a></li>    
+  </ul>
+  <!--<div class="tab">
+    <div id="tab-1" class="tab-content">
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sit amet purus urna. Proin dictum fringilla enim, sit amet suscipit dolor dictum in. Maecenas porttitor, est et malesuada congue, ligula elit fermentum massa, sit amet porta odio est at velit. Sed nec turpis neque. Fusce at mi felis, sed interdum tortor. Nullam pretium, est at congue mattis, nibh eros pharetra lectus, nec posuere libero dui consectetur arcu. Quisque convallis facilisis fermentum. Nam tincidunt, diam nec dictum mattis, nunc dolor ultrices ipsum, in mattis justo turpis nec ligula. Curabitur a ante mauris. Integer placerat imperdiet diam, facilisis pretium elit mollis pretium. Sed lobortis, eros non egestas suscipit, dui dui euismod enim, ac ultricies arcu risus at tellus. Donec imperdiet congue ligula, quis vulputate mauris ultrices non. Aliquam rhoncus, arcu a bibendum congue, augue risus tincidunt massa, vel vehicula diam dolor eget felis.</p>
+    </div>
+    <div id="tab-2" class="tab-content">
+      <p>Donec semper dictum sem, quis pretium sem malesuada non. Proin venenatis orci vel nisl porta sollicitudin. Pellentesque sit amet massa et orci malesuada facilisis vel vel lectus. Etiam tristique volutpat auctor. Morbi nec massa eget sem ultricies fermentum id ut ligula. Praesent aliquet adipiscing dictum. Suspendisse dignissim dui tortor. Integer faucibus interdum justo, mattis commodo elit tempor id. Quisque ut orci orci, sit amet mattis nulla. Suspendisse quam diam, feugiat at ullamcorper eget, sagittis sed eros. Proin tortor tellus, pulvinar at imperdiet in, egestas sed nisl. Aenean tempor neque ut felis dignissim ac congue felis viverra. </p>
+    </div>
+    <div id="tab-3" class="tab-content">
+      <p>Duis egestas fermentum ipsum et commodo. Proin bibendum consectetur elit, hendrerit porta mi dictum eu. Vestibulum adipiscing euismod laoreet. Vivamus lobortis tortor a odio consectetur pulvinar. Proin blandit ornare eros dictum fermentum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur laoreet, ante aliquet molestie laoreet, lectus odio fringilla purus, id porttitor erat velit vitae mi. Nullam posuere nunc ut justo sollicitudin interdum. Donec suscipit eros nec leo condimentum fermentum. Nunc quis libero massa. Integer tempus laoreet lectus id interdum. Integer facilisis egestas dui at convallis. Praesent elementum nisl et erat iaculis a blandit ligula mollis. Vestibulum vitae risus dui, nec sagittis arcu. Nullam tortor enim, placerat quis eleifend in, viverra ac lacus. Ut aliquam sapien ut metus hendrerit auctor dapibus justo porta. </p>
+    </div>
+    <div id="tab-4" class="tab-content">
+      <p>Proin sollicitudin tincidunt quam, in egestas dui tincidunt non. Maecenas tempus condimentum mi, sed convallis tortor iaculis eu. Cras dui dui, tempor quis tempor vitae, ullamcorper in justo. Integer et lorem diam. Quisque consequat lectus eget urna molestie pharetra. Cras risus lectus, lobortis sit amet imperdiet sit amet, eleifend a erat. Suspendisse vel luctus lectus. Sed ac arcu nisi, sit amet ornare tellus. Pellentesque nec augue a nibh pharetra scelerisque quis sit amet felis. Nullam at enim at lacus pretium iaculis sit amet vel nunc. Praesent sapien felis, tincidunt vitae blandit ut, mattis at diam. Suspendisse ac sapien eget eros venenatis tempor quis id odio. Donec lacus leo, tincidunt eget molestie at, pharetra cursus odio. </p>
+    </div>
+  </div>-->
+  
+</div>
+<table id="users" class="display" cellspacing="0" width="100%">
+<thead>
+<tr>
+<th>Name</th>
+<th>Location</th>
+<th>Age</th>
+<th>#Follower</th>
+<th>#Videos</th>
+<th>#Products</th>
+<th>Action</th>
+</tr>
+</thead>
+</table>
+<input type="hidden" name="userstatusvalue" id="userstatusvalue" vlaue="" />
+<!--<table id="post" class="display" cellspacing="0" width="100%">
+</table>-->
+<script>
+$(document).ready(function() {
+   /* $(".tabs-menu a").click(function(event) {
+        event.preventDefault();
+        $(this).parent().addClass("current");
+        $(this).parent().siblings().removeClass("current");
+        var tab = $(this).attr("href");
+        $(".tab-content").not(tab).css("display", "none");
+        $(tab).fadeIn();
+    });*/
+		
+	/*$('#users').dataTable( {
+		"aProcessing": true,
+		"aServerSide": true,
+		"ajax": "users",
+		"columns": [	 		 		
+			{ "data": "name" },
+			{ "data": "location" },
+			{ "data": "age" },
+			{ "data": "follower" }, 
+			{ "data": "video" },
+			{ "data": "products" },
+			{ "data": "action" },                                                     
+		]
+	});	*/
+	
+	$('#users').dataTable( {
+		"aProcessing": true,
+		"serverSide": true,
+		"ajax":{
+            url :"users", // json datasource
+            type: "post",  // type of method  , by default would be get
+            error: function(){  // error handling code
+              $("#users").css("display","none");
+            }
+          },
+		  "columns": [	 		 		
+			{ "data": "name" },
+			{ "data": "location" },
+			{ "data": "age" },
+			{ "data": "follower" }, 
+			{ "data": "video" },
+			{ "data": "products" },
+			{ "data": "action" },                                                     
+		]
+		
+	});	
+	
+	/*$('#post').dataTable( {
+		"aProcessing": true,
+		"aServerSide": true,
+		"ajax": "post",
+		"columns": [	 		 		
+			{ "data": "postdetail" },				                                                 
+		]
+	});	*/
+});
+
+function setUserStatus(userid,statusval){
+	var msg = "Are you sure you want to  change?";
+	if (confirm(msg)) {
+		if(jQuery('#userstatusvalue').val()!=''){
+			statusval = jQuery('#userstatusvalue').val()
+		}else{
+			statusval = statusval
+		}
+		jQuery.post('/admin/status/'+userid+'/'+statusval, {}, function(data) {	
+			// refresh page
+			if(statusval==1){
+				sval = 'Deactive';
+				jQuery('#userstatusvalue').val(0)
+			}else if(statusval==0){
+				sval = 'Active';
+				jQuery('#userstatusvalue').val(1)
+			}else{
+				sval = 'Active';
+				jQuery('#userstatusvalue').val(0)
+			}
+			jQuery('#s'+userid).html(sval)
+		});
+	}
+}
+
+</script>
+{% endblock %}

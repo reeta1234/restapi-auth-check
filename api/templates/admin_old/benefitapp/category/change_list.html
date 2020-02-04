@@ -1,0 +1,91 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls admin_static admin_list %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="{% static "admin/css/changelists.css" %}" />
+  {% if cl.formset %}
+    <link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}" />
+  {% endif %}
+  {% if cl.formset or action_form %}
+    <script type="text/javascript" src="{% url 'admin:jsi18n' %}"></script>
+  {% endif %}
+  {{ media.css }}
+  {% if not actions_on_top and not actions_on_bottom %}
+    <style>
+      #changelist table thead th:first-child {width: inherit}
+    </style>
+  {% endif %}
+{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+{{ media.js }}
+{% if action_form %}{% if actions_on_top or actions_on_bottom %}
+<script type="text/javascript">
+(function($) {
+    $(document).ready(function($) {
+        $("tr input.action-select").actions();
+    });
+})(django.jQuery);
+</script>
+{% endif %}{% endif %}
+{% endblock %}
+
+{% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} change-list{% endblock %}
+
+{% if not is_popup %}
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+<a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+&rsaquo; <a href="{% url 'admin:app_list' app_label=cl.opts.app_label %}">{{ cl.opts.app_config.verbose_name }}</a>
+&rsaquo; {{ cl.opts.verbose_name_plural|capfirst }}
+</div>
+{% endblock %}
+{% endif %}
+
+{% block coltype %}flex{% endblock %}
+
+{% block content %}
+  <div id="content-main">  
+
+	{% for object in result_list %}
+	
+	<div class="row">
+		<div class="medium-12 columns">{{object.postTitle}}</div>
+	</div>
+	<div class="row">
+		<div class="medium-3 columns"><img src="{{object.medium_thumb}}" /></div>
+		<div class="medium-6 columns">
+			<p>{{ object.description }}</p>
+			<p>view</p>
+			<p>like {{object.totalLikes}}</p>
+			<p>comments {{object.totalComment}}</p>
+			<p>uploaded on {{ object.createdate }}</p>
+			<p>Blog post</p>
+		</div>
+		<div class="medium-3 columns">
+			<p><img src="{{object.smallthumbimg}}" /></p>
+			<p>follwer</p>
+			<p>video</p>
+			<p>text post</p>
+			<p>deactive</p>
+		</div>
+	</div>
+	<!--<li>{{object.postId}}</li>
+	<li>{{object.postTitle}}</li>		
+	<li>{{ object.description }}</li>
+	<li>{{ object.scope }}</li>
+	<li>{{ object.type }}</li>
+	<li>{{ object.posturl }}</li>
+	<li>{{ object.thumbnailurl }}</li>
+	<li>{{ object.length }}</li>
+	<li>{{ object.createdate }}</li>
+	<li>{{ object.poststatus }}</li>
+	<li><img src="{{object.medium_thumb}}" /></li>	-->	
+	{% endfor %}
+	<!--{% block pagination %}{% pagination cl %}{% endblock %}-->
+  </div>
+{% endblock %}
+
+
