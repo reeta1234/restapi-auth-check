@@ -267,13 +267,17 @@ class PDFIndex(View):
 
 @method_decorator(csrf_exempt, name='dispatch')
 class SimpleTest(View):
-    def post(self,request,id,format=None):
-        print(id)
+    def post(self,request,userid,format=None):
+        print(userid)
         print(request.POST.get('price_lte'))
+        print(request.POST.get('oauth_consumer_key'))
+        print(request.headers)
         return JsonResponse({"data":'Post Data',"status":"success"})
-    def get(self,request,id,format=None):
-        print(id)
+    def get(self,request,userid,format=None):
+        print(userid)
         print(request.GET.get('price_lte'))
+        print(request.GET.get('AuthKey'))
+        print(request.GET)
         print(request.headers)
         if(request.headers['X-Api-Key']=='abc'):
             return JsonResponse({"data":'Get Data auth get success',"status":"success"})
