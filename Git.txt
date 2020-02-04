@@ -72,3 +72,13 @@ If index removed from elasticsearch the we need to restart fsclawer to make it r
 bin/fscrawler testjob --loop 1 --restart
 
 
+To run fscrawler in cron job create a sh file with .sh extenstion andinside file write code like below
+#!/bin/bash
+#absolute path of fscrawler 
+../fscrawler/bin/fscrawler testjob --loop 1 --restart    # to restart if job deleted from elastic search
+../fscrawler/bin/fscrawler testjob --loop 1  
+
+
+
+
+
