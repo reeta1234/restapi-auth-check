@@ -283,3 +283,39 @@ class SimpleTest(View):
             return JsonResponse({"data":'Get Data auth get success',"status":"success"})
         else:
             return JsonResponse({"data":'Get Data auth get failed',"status":"success"})
+
+
+@method_decorator(csrf_exempt, name='dispatch')
+class Search(View):
+    def get(self,request,format=None):
+        print(request.GET.get('q'))
+        print(request.GET.get('AuthKey'))
+        param = request.GET.get('q',None)
+        # print(request.GET)
+        # print(request.headers)
+        try:
+            url = settings.BASE_URL + "/_search5?pretty&q="+param
+            r = requests.get(url)
+            data = r.json() 
+            return JsonResponse({"data":data,"status":"success","param":param,'url':r.status_code})
+        except Exception as e:
+            print("OOPS!! Connection Error. Make sure you are connected to Internet. Technical Details given below.\n")
+            print(e)  
+            return JsonResponse({"data":str(e),"status":"success"})
+        except requests.ConnectionError as e:
+            print("OOPS!! Connection Error. Make sure you are connected to Internet. Technical Details given below.\n")
+            print(str(e))            
+        except requests.Timeout as e:
+            print("OOPS!! Timeout Error")
+            print(str(e))
+        except requests.RequestException as e:
+            print("OOPS!! General Error")
+            print(str(e))
+        except KeyboardInterrupt:
+            print("Someone closed the program")
+        #return JsonResponse({"data":r.json(),"status":"success"})
+        # data = r.json() 
+        # if(request.headers['X-Api-Key']=='abc'):
+        #     return JsonResponse({"data":'Get Data auth get success',"status":"success"})
+        # else:
+        #     return JsonResponse({"data":r.headers['Content-Type'],"status":"success"})
